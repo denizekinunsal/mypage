@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deneyim - Deniz Ekin Ünsal</title>
+    <style>
+        
+        :root {
+            --primary-color: #F8C8DC;
+            --primary-light: #FDF2F5;
+            --accent-color: #E4A6B9;
+            --text-dark: #434343;
+            --text-light: #767676;
+            --white: #FFFFFF;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+
+        /* Navigation stili */
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.02);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .logo:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            padding: 0.5rem 0;
+            position: relative;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-color);
+            transition: width 0.4s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Experience sayfası özel stilleri */
+        .experience-section {
+            padding: 120px 0 60px;
+            min-height: 100vh;
+            background: linear-gradient(
+                145deg,
+                var(--white) 0%,
+                var(--primary-light) 40%,
+                var(--white) 100%
+            );
+        }
+
+        .experience-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: -1px;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background-color: var(--primary-color);
+            opacity: 0.5;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(228, 166, 185, 0.1);
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+        }
+
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-subtitle {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background: var(--primary-light);
+            color: var(--accent-color);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .timeline-content {
+                margin-left: 50px;
+            }
+
+            .experience-container {
+                padding: 0 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-content">
+        <a href="index.html" class="logo">DE</a>
+        <div class="nav-links">
+            <a href="about.html">Hakkımda</a>
+            <a href="experience.html">Deneyim</a>
+            <a href="projects.html">Projeler</a>
+            <a href="portfolio.html">Portfolyo</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">İletişim</a>
+        </div>
+    </nav>
+
+    <section class="experience-section">
+        <div class="experience-container">
+            <h1 class="section-title">Eğitim & Deneyim</h1>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2022 - Devam Ediyor</span>
+                        <h2 class="timeline-title">Yönetim Bilişim Sistemleri</h2>
+                        <h3 class="timeline-subtitle">Adana Alparslan Türkeş Üniversitesi</h3>
+                        <p class="timeline-description">
+                            Yönetim Bilişim Sistemleri bölümünde eğitimime devam ediyorum. 
+                            Bu süreçte programlama, veri analizi ve sistem tasarımı konularında 
+                            kendimi geliştiriyorum.
+                        </p>
+                        <div class="skills-list">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Web Geliştirme</span>
+                            <span class="skill-tag">Veri Analizi</span>
+                        </div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2018 - 2022</span>
+                        <h2 class="timeline-title">Lise Eğitimi</h2>
+                        <p class="timeline-description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </p>
+                        <div class="skills-list">
+                            <span class="skill-tag">Temel Bilgisayar</span>
+                            <span class="skill-tag">Problem Çözme</span>
+                        </div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2024</span>
+                        <h2 class="timeline-title">Pygame Oyun Geliştirme Projesi</h2>
+                        <p class="timeline-description">
+                            Python ve Pygame kullanarak uzay temalı bir oyun geliştirdim.
+                            Bu projede oyun geliştirme, nesne yönelimli programlama ve
+                            performans optimizasyonu konularında deneyim kazandım.
+                        </p>
+                        <div class="skills-list">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Pygame</span>
+                            <span class="skill-tag">Game Dev</span>
+                        </div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

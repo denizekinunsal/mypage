@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakkımda - Deniz Ekin Ünsal</title>
+    <style>
+        :root {
+            --primary-color: #F8C8DC;
+            --primary-light: #FDF2F5;
+            --accent-color: #E4A6B9;
+            --text-dark: #434343;
+            --text-light: #767676;
+            --white: #FFFFFF;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+
+        /* Navigation stili */
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.02);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .logo:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            padding: 0.5rem 0;
+            position: relative;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-color);
+            transition: width 0.4s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobil menü stilleri */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 76px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--primary-light);
+            color: var(--accent-color);
+        }
+
+        /* About sayfası özel stilleri */
+        .about-section {
+            padding: 120px 0 60px;
+            min-height: 100vh;
+            background: linear-gradient(
+                145deg,
+                var(--white) 0%,
+                var(--primary-light) 40%,
+                var(--white) 100%
+            );
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-content {
+            padding-right: 2rem;
+        }
+
+        .about-title {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            letter-spacing: -1px;
+        }
+
+        .about-text {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .skills-title {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin: 3rem 0 1.5rem;
+        }
+
+        .skills-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .skills-list li {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skills-list li:before {
+            content: "▹";
+            color: var(--accent-color);
+        }
+
+        .profile-container {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .profile-wrap {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-wrap:hover .profile-img {
+            transform: scale(1.05);
+        }
+
+        .education-box {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            box-shadow: 0 5px 15px rgba(228, 166, 185, 0.1);
+        }
+
+        .education-box h3 {
+            color: var(--accent-color);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .education-box p {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1.5rem;
+            }
+
+            .about-content {
+                padding-right: 0;
+            }
+
+            .about-title {
+                font-size: 2rem;
+                text-align: center;
+            }
+
+            .skills-list {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-container {
+                margin: 2rem auto;
+                max-width: 250px;
+            }
+
+            .education-box {
+                margin-top: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-content">
+        <a href="index.html" class="logo">DE</a>
+        <div class="nav-links">
+            <a href="about.html">Hakkımda</a>
+            <a href="experience.html">Deneyim</a>
+            <a href="projects.html">Projeler</a>
+            <a href="portfolio.html">Portfolyo</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">İletişim</a>
+        </div>
+        <button class="mobile-menu-btn">☰</button>
+    </nav>
+
+    <div class="mobile-menu">
+        <a href="about.html">Hakkımda</a>
+        <a href="experience.html">Deneyim</a>
+        <a href="projects.html">Projeler</a>
+        <a href="portfolio.html">Portfolyo</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">İletişim</a>
+    </div>
+
+    <section class="about-section">
+        <div class="about-container">
+            <div class="about-content">
+                <h1 class="about-title">Hakkımda</h1>
+                
+                <p class="about-text">
+                    Merhaba! Ben Deniz Ekin Ünsal. Yazılım geliştirme dünyasına olan ilgim,
+                    <span class="highlight">Adana Alparslan Türkeş Üniversitesi</span>'nde 
+                    Yönetim Bilişim Sistemleri eğitimi alırken başladı.
+                </p>
+
+                <p class="about-text">
+                    Python programlama dili ile projeler geliştirerek kendimi geliştirmeye devam ediyorum.
+                    Özellikle <span class="highlight">oyun geliştirme</span> ve 
+                    <span class="highlight">kullanıcı deneyimi</span> konularına ilgi duyuyorum.
+                </p>
+
+                <h2 class="skills-title">Kullandığım Teknolojiler</h2>
+                <ul class="skills-list">
+                    <li>Python</li>
+                    <li>HTML & CSS</li>
+                    <li>Pygame</li>
+                    <li>Git</li>
+                    <li>SQLite</li>
+                    <li>VS Code</li>
+                </ul>
+
+                <div class="education-box">
+                    <h3>Eğitim</h3>
+                    <p>Adana Alparslan Türkeş Üniversitesi</p>
+                    <p>Yönetim Bilişim Sistemleri</p>
+                    <p>2022 - Devam Ediyor</p>
+                </div>
+            </div>
+
+            <div class="profile-container">
+                <div class="profile-wrap">
+                    <img src="/api/placeholder/400/400" alt="Deniz Ekin Ünsal" class="profile-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        let isMenuOpen = false;
+
+        mobileMenuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if(isMenuOpen) {
+                mobileMenu.classList.add('active');
+                mobileMenuBtn.textContent = '×';
+            } else {
+                mobileMenu.classList.remove('active');
+                mobileMenuBtn.textContent = '☰';
+            }
+        });
+    </script>
+</body>
+</html>

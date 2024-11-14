@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeler - Deniz Ekin Ünsal</title>
+    <style>
+        :root {
+            --primary-color: #F8C8DC;
+            --primary-light: #FDF2F5;
+            --accent-color: #E4A6B9;
+            --text-dark: #434343;
+            --text-light: #767676;
+            --white: #FFFFFF;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+
+        /* Navigation stili */
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.02);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .logo:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            padding: 0.5rem 0;
+            position: relative;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-color);
+            transition: width 0.4s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Projects sayfası özel stilleri */
+        .projects-section {
+            padding: 120px 0 60px;
+            min-height: 100vh;
+            background: linear-gradient(
+                145deg,
+                var(--white) 0%,
+                var(--primary-light) 40%,
+                var(--white) 100%
+            );
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: -1px;
+        }
+
+        .projects-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(228, 166, 185, 0.1);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .project-description {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-tag {
+            background-color: var(--primary-light);
+            color: var(--accent-color);
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .projects-section {
+                padding: 100px 0 40px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1.5rem;
+                gap: 2rem;
+            }
+
+            .project-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-content">
+        <a href="index.html" class="logo">DE</a>
+        <div class="nav-links">
+            <a href="about.html">Hakkımda</a>
+            <a href="experience.html">Deneyim</a>
+            <a href="projects.html">Projeler</a>
+            <a href="portfolio.html">Portfolyo</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">İletişim</a>
+        </div>
+    </nav>
+
+    <section class="projects-section">
+        <h1 class="section-title">Projeler</h1>
+        
+        <div class="projects-grid">
+            <article class="project-card">
+                <div class="project-image">
+                    <img src="/api/placeholder/400/300" alt="Pygame Uzay Oyunu">
+                </div>
+                <div class="project-content">
+                    <h2 class="project-title">Pygame Uzay Oyunu</h2>
+                    <p class="project-description">
+                        Python ve Pygame kullanarak geliştirdiğim dinamik uzaylı vurma oyunu. 
+                        Gerçek zamanlı hızlanan düşman hareketleri ve performans optimizasyonu içeriyor.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Pygame</span>
+                        <span class="tech-tag">Game Dev</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <div class="project-image">
+                    <img src="/api/placeholder/400/300" alt="Blog Projesi">
+                </div>
+                <div class="project-content">
+                    <h2 class="project-title">Blog Projesi</h2>
+                    <p class="project-description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <div class="project-image">
+                    <img src="/api/placeholder/400/300" alt="Todo App">
+                </div>
+                <div class="project-content">
+                    <h2 class="project-title">Todo Uygulaması</h2>
+                    <p class="project-description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">SQLite</span>
+                        <span class="tech-tag">PyQt5</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</body>
+</html>

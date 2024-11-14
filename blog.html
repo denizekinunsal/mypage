@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Deniz Ekin Ünsal</title>
+    <style>
+        :root {
+            --primary-color: #F8C8DC;
+            --primary-light: #FDF2F5;
+            --accent-color: #E4A6B9;
+            --text-dark: #434343;
+            --text-light: #767676;
+            --white: #FFFFFF;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+
+        /* Navigation stili */
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.02);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .logo:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            padding: 0.5rem 0;
+            position: relative;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-color);
+            transition: width 0.4s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Blog sayfası özel stilleri */
+        .blog-section {
+            padding: 120px 0 60px;
+            min-height: 100vh;
+            background: linear-gradient(
+                145deg,
+                var(--white) 0%,
+                var(--primary-light) 40%,
+                var(--white) 100%
+            );
+        }
+
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: -1px;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(228, 166, 185, 0.1);
+        }
+
+        .blog-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.5rem 1.5rem;
+            border: 1px solid var(--accent-color);
+            border-radius: 50px;
+            color: var(--accent-color);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        .featured-post {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+            box-shadow: 0 5px 15px rgba(228, 166, 185, 0.1);
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+        }
+
+        .featured-image {
+            position: relative;
+            height: 400px;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-tag {
+            background: var(--primary-light);
+            color: var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .featured-title {
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .blog-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(228, 166, 185, 0.1);
+        }
+
+        .blog-image {
+            position: relative;
+            height: 200px;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover .blog-image img {
+            transform: scale(1.05);
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-tag {
+            background: var(--primary-light);
+            color: var(--accent-color);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .read-more {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: var(--primary-color);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--accent-color);
+            border-radius: 50%;
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover,
+        .page-btn.active {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .featured-post {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                height: 250px;
+            }
+
+            .featured-content {
+                padding: 2rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+            
+            .category-btn {
+                font-size: 0.8rem;
+                padding: 0.4rem 1.2rem;
+            }
+
+            .blog-categories {
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-content">
+        <a href="index.html" class="logo">DE</a>
+        <div class="nav-links">
+            <a href="about.html">Hakkımda</a>
+            <a href="experience.html">Deneyim</a>
+            <a href="projects.html">Projeler</a>
+            <a href="portfolio.html">Portfolyo</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">İletişim</a>
+        </div>
+    </nav>
+
+    <section class="blog-section">
+        <div class="blog-container">
+            <h1 class="section-title">Blog</h1>
+
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Blog yazılarında ara...">
+            </div>
+
+            <div class="blog-categories">
+                <button class="category-btn active">Tümü</button>
+                <button class="category-btn">Python</button>
+                <button class="category-btn">Web Geliştirme</button>
+                <button class="category-btn">Oyun Geliştirme</button>
+                <button class="category-btn">UI/UX</button>
+            </div>
+
+            <article class="featured-post">
+                <div class="featured-image">
+                    <img src="/api/placeholder/800/600" alt="Featured Post">
+                </div>
+                <div class="featured-content">
+                    <span class="featured-tag">PYTHON</span>
+                    <h2 class="featured-title">Python ile Oyun Geliştirme: Başlangıç Rehberi</h2>
+                    <p class="blog-excerpt">
+                        Python ve Pygame kullanarak nasıl oyun geliştirebileceğinizi, 
+                        temel kavramları ve best practice'leri ele aldığım kapsamlı bir rehber.
+                    </p>
+                    <div class="blog-meta">
+                        <span>12 Kasım 2024</span>
+                        <a href="#" class="read-more">Devamını Oku →</a>
+                    </div>
+                </div>
+            </article>
+
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="/api/placeholder/400/300" alt="Blog Post">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">WEB</span>
+                        <h3 class="blog-title">Modern Web Tasarım Trendleri</h3>
+                        <p class="blog-excerpt">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            Sed do eiusmod tempor incididunt ut labore.
+                        </p>
+                        <div class="blog-meta">
+                            <span>10 Kasım 2024</span>
+                            <a href="#" class="read-more">Oku →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="/api/placeholder/400/300" alt="Blog Post">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">UI/UX</span>
+                        <h3 class="blog-title">Kullanıcı Deneyimi İpuçları</h3>
+                        <p class="blog-excerpt">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            Sed do eiusmod tempor incididunt ut labore.
+                        </p>
+                        <div class="blog-meta">
+                            <span>8 Kasım 2024</span>
+                            <a href="#" class="read-more">Oku →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="/api/placeholder/400/300" alt="Blog Post">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">PYTHON</span>
+                        <h3 class="blog-title">Python'da Veri Yapıları</h3>
+                        <p class="blog-excerpt">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            Sed do eiusmod tempor incididunt ut labore.
+                        </p>
+                        <div class="blog-meta">
+                            <span>5 Kasım 2024</span>
+                            <a href="#" class="read-more">Oku →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="pagination">
+                <a href="#" class="page-btn active">1</a>
+                <a href="#" class="page-btn">2</a>
+                <a href="#" class="page-btn">3</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
